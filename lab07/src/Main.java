@@ -1,134 +1,73 @@
 import java.time.LocalTime;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
-    public static void wyswietlOpcjeDniTygodnia(){
-        System.out.println("Wybierz dzien tygodnia:");
-        System.out.println("0. Poniedzialek");
-        System.out.println("1. Wtorek");
-        System.out.println("2. Sroda");
-        System.out.println("3. Czwartek");
-        System.out.println("4. Piatek");
-        System.out.println("5. Sobota");
-        System.out.println("6. Niedziela");
-    }
-
-    public static void wyswietlOpcjePriorytet(){
-        System.out.println("Wybierz priorytet:");
-        System.out.println("wysoki");
-        System.out.println("sredni");
-        System.out.println("niski");
-    }
-
-    public static void wyswietlWszystkieDzienPriorytet(Kalendarz kalendarz){
-        wyswietlOpcjeDniTygodnia();
-        Scanner wyswietlWszystkieDzienPriorytetScannerDzien = new Scanner(System.in);
-        int wyborDzien = wyswietlWszystkieDzienPriorytetScannerDzien.nextInt();
-        wyswietlOpcjePriorytet();
-        Scanner wyswietlWszystkieDzienPriorytetScannerPriorytet = new Scanner(System.in);
-        String wyborPriorytet = wyswietlWszystkieDzienPriorytetScannerPriorytet.nextLine();
-        kalendarz.wyswietlDzienPriorytet(wyborDzien, wyborPriorytet);
-        wyswietlWszystkieDzienPriorytetScannerDzien.close();
-        wyswietlWszystkieDzienPriorytetScannerPriorytet.close();
-
-    }
-
-    public static void wyswietlWszystkieWWybranymDniu(Kalendarz kalendarz){
-        Scanner wyswietlWszystkieWWybranymDniuScanner = new Scanner(System.in);
-        wyswietlOpcjeDniTygodnia();
-        int wyborDzien = wyswietlWszystkieWWybranymDniuScanner.nextInt();
-        kalendarz.wyswietlDzien(wyborDzien);
-
-        wyswietlWszystkieWWybranymDniuScanner.close();
-    }
-
-    public static void dodajSpotkanie(Kalendarz kalendarz){
-        Scanner dodajSpotkanieScanner = new Scanner(System.in);
-        wyswietlOpcjeDniTygodnia();
-        int wyborDzien = dodajSpotkanieScanner.nextInt();
-        Scanner dodajSpotkanieScannerOpis = new Scanner(System.in);
-        System.out.println("Podaj opis spotkania:");
-        String opis = dodajSpotkanieScannerOpis.nextLine();
-        System.out.println("Podaj czas poczatek spotkania:");
-        Scanner dodajSpotkanieScannerCzasPoczatek = new Scanner(System.in);
-        LocalTime czasPoczatek = LocalTime.parse(dodajSpotkanieScannerCzasPoczatek.nextLine());
-        System.out.println("Podaj czas konca spotkania:");
-        Scanner dodajSpotkanieScannerCzasKonca = new Scanner(System.in);
-        LocalTime czasKonca = LocalTime.parse(dodajSpotkanieScannerCzasKonca.nextLine());
-        System.out.println("Podaj priorytet spotkania:");
-        wyswietlOpcjePriorytet();
-        Scanner dodajSpotkanieScannerPriorytet = new Scanner(System.in);
-        String priorytet = dodajSpotkanieScannerPriorytet.nextLine();
-
-        kalendarz.dodajSpotkanie(wyborDzien, opis, czasPoczatek, czasKonca, priorytet);
-
-        dodajSpotkanieScanner.close();
-        dodajSpotkanieScannerOpis.close();
-        dodajSpotkanieScannerCzasPoczatek.close();
-        dodajSpotkanieScannerCzasKonca.close();
-        dodajSpotkanieScannerPriorytet.close();
-
-    }
-
-    public static void usunSpotkanie(Kalendarz kalendarz){
-        Scanner usunSpotkanieScanner = new Scanner(System.in);
-        wyswietlOpcjeDniTygodnia();
-        int wyborDzien = usunSpotkanieScanner.nextInt();
-        System.out.println("Podaj numer spotkania do usuniecia:");
-        int numerSpotkania = usunSpotkanieScanner.nextInt();
-
-        kalendarz.usunSpotkanie(wyborDzien, numerSpotkania);
-
-        usunSpotkanieScanner.close();
-    }
-
-    public static void printujTydzien(Kalendarz kalendarz){
-        kalendarz.wyswietlTydzien();
-    }
-
     public static void main(String[] args){
-        // Kalendarz kalendarz = new Kalendarz();
-        // kalendarz.dodajSpotkanie(0, "eeee", LocalTime.parse("13:00:00"), LocalTime.parse("14:00:00"), "wysoki");
-        // kalendarz.dodajSpotkanie(0, "ą", LocalTime.parse("14:00:00"), LocalTime.parse("15:00:00"), "sredni");
-        // // kalendarz.wyswietlTydzien();
-        // kalendarz.usunSpotkanie(0, 0);
-        // // kalendarz.wyswietlTydzien();
-        // kalendarz.dodajSpotkanie(0, "ddd", LocalTime.parse("18:00:00"), LocalTime.parse("19:00:00"), "wysoki");
-        // kalendarz.wyswietlDzien(0);
-        // kalendarz.wyswietlDzienPriorytet(0, "wysoki");
-        int wyborMain = 0;
+        Scanner inputInt = new Scanner(System.in);
+        Scanner inputString = new Scanner(System.in);
+
         Kalendarz mojKalendarz = new Kalendarz();
-        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Program do zarządzania kalendrzem spotkań");
+        int wybor = 0;
         do{
-            System.out.println("Wybierz opcje:");
-            System.out.println("1 - Dodaj spotkanie na dany dzien");
-            System.out.println("2 - Usun wybrane spotkanie z wybranego dnia");
-            System.out.println("3 - Wyswietl wszystkie spotkania w wybranym dniu");
-            System.out.println("4 - Wyswietl wszystkie spotkania w wybranym dniu o wybranym priorytecie");
-            System.out.println("5 - Wyjscie z programu");
-            wyborMain = scanner.nextInt();
-            switch(wyborMain) {
-                case 1:
-                    dodajSpotkanie(mojKalendarz);
-                    break;
-                case 2:
-                    usunSpotkanie(mojKalendarz);
-                    break;
-                case 3:
-                    wyswietlWszystkieWWybranymDniu(mojKalendarz);
-                    break;
-                case 4:
-                    wyswietlWszystkieDzienPriorytet(mojKalendarz);
-                    break;
-                case 5:
-                    System.out.println("Wyjscie z programu");
-                    break;
-                default:
-                    System.out.println("Nieprawidlowa opcja");
-                    break;
+            System.out.println("Co chcesz zrobić?  \n1-Dodaj spotkanie\n2-Usun spotkanie\n3-Wyswietl spotkania z wybranego dnia\n4-Wyswietl spotkania z wybranego dnia o wybranym priorytecie\n5-Wyjscie");
+            wybor = inputInt.nextInt();
+            switch (wybor){
+                case 1 ->   addMeeting(mojKalendarz, inputInt, inputString);
+                case 2 ->   removeMeeting(mojKalendarz, inputInt);
+                case 3 ->   showMeetings(mojKalendarz, inputInt);
+                case 4 ->   showMeetingsWithPriority(mojKalendarz, inputInt, inputString);
             }
-        } while(wyborMain != 5);
-        scanner.close();
-        
+        }while (wybor != 5);
+
     }
+
+    public static void addMeeting(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
+        System.out.println("Podaj dzień tygodnia (0-6)");
+        int dzien = inputInt.nextInt();
+        System.out.println("Podaj opis spotkania");
+        String opis = inputString.nextLine();
+        System.out.println("Podaj godzine rozpoczecia");
+        String czasPoczatku = inputString.nextLine();
+        while (LocalTime.parse(czasPoczatku).compareTo(Spotkanie.MIN_CZAS) < 0){
+            System.out.println("Godzina niepoprawna, podaj jeszcze raz");
+            czasPoczatku = inputString.nextLine();
+        }
+        System.out.println("Podaj godzine zakonczenia");
+        String czasKonca = inputString.nextLine();
+        System.out.println("Podaj priorytet (niski, sredni, wysoki)");
+        String priorytet = inputString.nextLine();
+        mojKalendarz.dodajSpotkanie(dzien, opis, LocalTime.parse(czasPoczatku), LocalTime.parse(czasKonca), priorytet);
+    }
+
+    public static void removeMeeting(Kalendarz mojKalendarz, Scanner inputInt){
+        System.out.println("Podaj dzień tygodnia (0-6)");
+        int dzien = inputInt.nextInt();
+        System.out.println("Podaj indeks spotkania");
+        int index = inputInt.nextInt();
+        mojKalendarz.usunSpotkanie(dzien, index);
+    }
+
+    public static void showMeetingsWithPriority(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
+        System.out.println("Podaj dzień tygodnia (0-6)");
+        int dzien = inputInt.nextInt();
+        System.out.println("Podaj priorytet (wysoki, sredni, niski)");
+        String priorytet = inputString.nextLine();
+        printElems(mojKalendarz.getSpotkaniaDniaTygodniaOPriorytecie(dzien, priorytet));
+    }
+
+    public static void showMeetings(Kalendarz mojKalendarz, Scanner inputInt){
+        System.out.println("Podaj dzień tygodnia (0-6)");
+        int dzien = inputInt.nextInt();
+        printElems(mojKalendarz.getSpotkaniaDniaTygodnia(dzien));
+    }
+
+    public static void printElems(ArrayList<Spotkanie> elems){
+        for (Spotkanie spotkanie : elems){
+            System.out.println(spotkanie.wypisz());
+        }
+    }
+
 }
