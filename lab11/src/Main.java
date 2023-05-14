@@ -73,7 +73,8 @@ public class Main {
         int dzien = inputInt.nextInt();
         System.out.println("Podaj priorytet (wysoki, sredni, niski)");
         String priorytet = inputString.nextLine();
-        printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOPriorytecie(priorytet)));
+        // printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOPriorytecie(priorytet)));
+        printElems(mojKalendarz.getDzien(dzien, s -> s.getPriorytet().equals(Spotkanie.PriorytetVals.valueOf(priorytet))));
     }
 
     public static void showMeetingsFrom(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
@@ -81,7 +82,8 @@ public class Main {
         int dzien = inputInt.nextInt();
         System.out.println("Podaj godzine rozpoczecia");
         String czasPoczatku = inputString.nextLine();
-        printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku))));
+        // printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku))));
+        printElems(mojKalendarz.getDzien(dzien, s -> s.getCzasPoczatku().compareTo(LocalTime.parse(czasPoczatku)) >= 0));
     }
 
     public static void showMeetingsFromTo(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
@@ -91,7 +93,8 @@ public class Main {
         String czasPoczatku = inputString.nextLine();
         System.out.println("Podaj godzine zakonczenia");
         String czasKonca = inputString.nextLine();
-        printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku)).and(mojKalendarz.getDoPodanejGodziny(LocalTime.parse(czasKonca)))));
+        // printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku)).and(mojKalendarz.getDoPodanejGodziny(LocalTime.parse(czasKonca)))));
+        printElems(mojKalendarz.getDzien(dzien, s -> s.getCzasPoczatku().compareTo(LocalTime.parse(czasPoczatku)) >= 0 && s.getCzasZakonczenia().compareTo(LocalTime.parse(czasKonca)) <= 0));
     }
 
     public static void showMeetingsFromWithPriority(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
@@ -101,7 +104,8 @@ public class Main {
         String czasPoczatku = inputString.nextLine();
         System.out.println("Podaj priorytet (wysoki, sredni, niski)");
         String priorytet = inputString.nextLine();
-        printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku)).and(mojKalendarz.getOPriorytecie(priorytet))));
+        // printElems(mojKalendarz.getDzien(dzien, mojKalendarz.getOdPodanejGodziny(LocalTime.parse(czasPoczatku)).and(mojKalendarz.getOPriorytecie(priorytet))));
+        printElems(mojKalendarz.getDzien(dzien, s -> s.getCzasPoczatku().compareTo(LocalTime.parse(czasPoczatku)) >= 0 && s.getPriorytet().equals(Spotkanie.PriorytetVals.valueOf(priorytet))));
     }
 
     public static void printElems(ArrayList<Spotkanie> elems){

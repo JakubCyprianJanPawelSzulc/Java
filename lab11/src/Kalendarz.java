@@ -43,17 +43,17 @@ public class Kalendarz{
         return spotkania;
     }
 
-    public Predicate<Spotkanie> getOdPodanejGodziny(LocalTime czas){
-        return s -> s.getCzasPoczatku().compareTo(czas) >= 0;
-    }
+    // public Predicate<Spotkanie> getOdPodanejGodziny(LocalTime czas){
+    //     return s -> s.getCzasPoczatku().compareTo(czas) >= 0;
+    // }
 
-    public Predicate<Spotkanie> getDoPodanejGodziny(LocalTime czas){
-        return s -> s.getCzasZakonczenia().compareTo(czas) <= 0;
-    }
+    // public Predicate<Spotkanie> getDoPodanejGodziny(LocalTime czas){
+    //     return s -> s.getCzasZakonczenia().compareTo(czas) <= 0;
+    // }
 
-    public Predicate<Spotkanie> getOPriorytecie(String priorytet){
-        return s -> s.getPriorytet().equals(Spotkanie.PriorytetVals.valueOf(priorytet));
-    }
+    // public Predicate<Spotkanie> getOPriorytecie(String priorytet){
+    //     return s -> s.getPriorytet().equals(Spotkanie.PriorytetVals.valueOf(priorytet));
+    // }
     
     public ArrayList<Spotkanie> getDzien(int dzien, Predicate<Spotkanie> warunek){
         ArrayList<Spotkanie> spotkania = new ArrayList<>();
