@@ -1,6 +1,6 @@
 import java.time.LocalTime;
 
-abstract sealed class Wydarzenie permits Zadanie, Spotkanie{
+abstract sealed class Wydarzenie permits Zadanie, Spotkanie {
     protected String opis;
     protected LocalTime czasPoczatku;
     protected LocalTime czasKonca;

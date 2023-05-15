@@ -18,6 +18,7 @@ public final class Zadanie extends Wydarzenie {
         return this.status;
     }
 
+
     @Override
     public String toString(){
         return "\t" + this.opis + "\n\t" + this.czasPoczatku + "-" + this.czasKonca + "\n\tstatus: " + this.status;
