@@ -1,4 +1,3 @@
-import java.io.ObjectInputFilter.Status;
 import java.time.LocalTime;
 
 public final class Zadanie extends Wydarzenie {

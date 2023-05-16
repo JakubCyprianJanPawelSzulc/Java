@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Program do zarządzania kalendrzem spotkań");
         int wybor = 0;
         do{
-            System.out.println("Co chcesz zrobić?  \n1-Dodaj \n2-Usun spotkanie\n3-Wyswietl z wybranego dnia\n4-Wyswietl spotkania z wybranego dnia o wybranym priorytecie\n5-Wyświetl spotkania w wybranym dniu od podanego czasu\n6-Wyświetl spotkania w wybranym dniu w przedziale czasowym\n7-Wyświetl spotkania w wybranym dniu o wybranym priorytecie i od podanego czasu\n8-Wyjscie");
+            System.out.println("Co chcesz zrobić?  \n1-Dodaj \n2-Usun \n3-Wyswietl z wybranego dnia\n4-Wyswietl z wybranego dnia o wybranym priorytecie/statusie\n5-Wyświetl w wybranym dniu od podanego czasu\n6-Wyświetl w wybranym dniu w przedziale czasowym\n7-Wyświetl w wybranym dniu o wybranym priorytecie/statusie i od podanego czasu\n8-Wyświetl do podanego czasu\n9-Wyjscie");
             wybor = inputInt.nextInt();
             switch (wybor){
                 case 1 ->   addEvent(mojKalendarz, inputInt, inputString);
@@ -23,8 +23,9 @@ public class Main {
                 case 5 ->   showEventsFrom(mojKalendarz, inputInt, inputString);
                 case 6 ->   showEventsFromTo(mojKalendarz, inputInt, inputString);
                 case 7 ->   showEventsFromWithPriorityStatus(mojKalendarz, inputInt, inputString);
+                case 8 ->   showEventsTo(mojKalendarz, inputInt, inputString);
             }
-        }while (wybor != 8);
+        }while (wybor != 9);
 
     }
 
@@ -71,22 +72,20 @@ public class Main {
         else if (wybor == 2){
             warunek2 = e -> e instanceof Zadanie;
         }
-        mojKalendarz.usunWydarzenie(dzien, 0, warunek.and(warunek2));
+        mojKalendarz.usunWydarzenie(dzien, warunek.and(warunek2));
     }
 
     public static void showEvents(Kalendarz mojKalendarz, Scanner inputInt){
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
         System.out.println("spotkanie czy zadanie (1/2)");
-        Predicate <Wydarzenie> warunek = e -> true;
         int wybor = inputInt.nextInt();
         if(wybor ==1){
-            warunek = e -> e instanceof Spotkanie;
+            printElems(mojKalendarz.getDzien(dzien, e -> e instanceof Spotkanie));
         }
         else if (wybor == 2){
-            warunek = e -> e instanceof Zadanie;
+            printElems(mojKalendarz.getDzien(dzien, e -> e instanceof Zadanie));
         }
-        printElems(mojKalendarz.getDzien(dzien, warunek));
     }
 
     public static void showEventsWithPriorityStatus(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
@@ -154,6 +153,21 @@ public class Main {
             System.out.println("Podaj status (planowane, potwierdzone, realizowane, wykonane)");
             String status = inputString.nextLine();
             printElems(mojKalendarz.getDzien(dzien, s -> s instanceof Zadanie && s.getCzasPoczatku().compareTo(LocalTime.parse(czasPoczatku)) >= 0 && ((Zadanie)s).getStatus().equals(Zadanie.StatusVals.valueOf(status))));
+        }
+    }
+
+    public static void showEventsTo(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
+        System.out.println("Podaj dzień tygodnia (0-6)");
+        int dzien = inputInt.nextInt();
+        System.out.println("Podaj godzine zakonczenia");
+        String czasKonca = inputString.nextLine();
+        System.out.println("spotkanie czy zadanie (1/2)");
+        int wybor = inputInt.nextInt();
+        if(wybor==1){
+            printElems(mojKalendarz.getDzien(dzien, s -> s instanceof Spotkanie && s.getCzasZakonczenia().compareTo(LocalTime.parse(czasKonca)) <= 0));
+        }
+        else if (wybor == 2){
+            printElems(mojKalendarz.getDzien(dzien, s -> s instanceof Zadanie && s.getCzasZakonczenia().compareTo(LocalTime.parse(czasKonca)) <= 0));
         }
     }
 
