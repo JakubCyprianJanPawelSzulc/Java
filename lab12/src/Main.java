@@ -10,7 +10,7 @@ public class Main {
 
         Kalendarz mojKalendarz = new Kalendarz();
 
-        System.out.println("Program do zarządzania kalendrzem spotkań");
+        System.out.println("Program do zarządzania kalendrzem spotkań i zadań");
         int wybor = 0;
         do{
             System.out.println("Co chcesz zrobić?  \n1-Dodaj \n2-Usun \n3-Wyswietl z wybranego dnia\n4-Wyswietl z wybranego dnia o wybranym priorytecie/statusie\n5-Wyświetl w wybranym dniu od podanego czasu\n6-Wyświetl w wybranym dniu w przedziale czasowym\n7-Wyświetl w wybranym dniu o wybranym priorytecie/statusie i od podanego czasu\n8-Wyświetl do podanego czasu\n9-Wyjscie");
@@ -30,11 +30,11 @@ public class Main {
     }
 
     public static void addEvent(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
-        System.out.println("Zadanie czy spotkanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
-        System.out.println("Podaj opis spotkania");
+        System.out.println("Podaj opis");
         String opis = inputString.nextLine();
         System.out.println("Podaj godzine rozpoczecia");
         String czasPoczatku = inputString.nextLine();
@@ -58,11 +58,11 @@ public class Main {
     }
 
     public static void removeEvent(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
-        System.out.println("Zadanie czy spotkanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
-        System.out.println("Podaj opis spotkania");
+        System.out.println("Podaj opis");
         String opis = inputString.nextLine();
         Predicate <Wydarzenie> warunek = e -> e.getOpis().equals(opis);
         Predicate <Wydarzenie> warunek2 = e -> true;
@@ -78,7 +78,7 @@ public class Main {
     public static void showEvents(Kalendarz mojKalendarz, Scanner inputInt){
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         if(wybor ==1){
             printElems(mojKalendarz.getDzien(dzien, e -> e instanceof Spotkanie));
@@ -91,7 +91,7 @@ public class Main {
     public static void showEventsWithPriorityStatus(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         if (wybor == 1){
             System.out.println("Podaj priorytet (wysoki, sredni, niski)");
@@ -110,7 +110,7 @@ public class Main {
         int dzien = inputInt.nextInt();
         System.out.println("Podaj godzine rozpoczecia");
         String czasPoczatku = inputString.nextLine();
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         if(wybor==1){
             printElems(mojKalendarz.getDzien(dzien, s -> s instanceof Spotkanie && s.getCzasPoczatku().compareTo(LocalTime.parse(czasPoczatku)) >= 0));
@@ -123,7 +123,7 @@ public class Main {
     public static void showEventsFromTo(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         System.out.println("Podaj godzine rozpoczecia");
         String czasPoczatku = inputString.nextLine();
@@ -138,7 +138,7 @@ public class Main {
     }
 
     public static void showEventsFromWithPriorityStatus(Kalendarz mojKalendarz, Scanner inputInt, Scanner inputString){
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         System.out.println("Podaj dzień tygodnia (0-6)");
         int dzien = inputInt.nextInt();
@@ -161,7 +161,7 @@ public class Main {
         int dzien = inputInt.nextInt();
         System.out.println("Podaj godzine zakonczenia");
         String czasKonca = inputString.nextLine();
-        System.out.println("spotkanie czy zadanie (1/2)");
+        System.out.println("Spotkanie czy zadanie (1/2)");
         int wybor = inputInt.nextInt();
         if(wybor==1){
             printElems(mojKalendarz.getDzien(dzien, s -> s instanceof Spotkanie && s.getCzasZakonczenia().compareTo(LocalTime.parse(czasKonca)) <= 0));
