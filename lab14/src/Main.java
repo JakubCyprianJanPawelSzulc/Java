@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Program do zarzadzania ofertami nieruchomosci");
         int wybor = 0;
         do{
-            System.out.println("Co chcesz zrobic?\n1-Dodaj\n2-Wyswietl wszystkie aktualne oferty sprzedazy domów/mieszkan\n3-Wyswietl wszystkie aktualne oferty sprzedazy domow w podanej miejscowosci, o powierzchni nie mniejszej niz podana wartosc\n4-Wyswietl wszystkie aktualne oferty mieszkan w podanej miejscowosci nie drozsze niz podana wartosc i od podanego pietra wzwyz\n5-Wyjdz");
+            System.out.println("Co chcesz zrobic?\n1-Dodaj\n2-Wyswietl wszystkie aktualne oferty sprzedazy domów/mieszkan\n3-Wyswietl wszystkie aktualne oferty sprzedazy domow w podanej miejscowosci o powierzchni nie mniejszej niz podana wartosc\n4-Wyswietl aktualne oferty mieszkan w podanej miejscowosci nie drozsze niz podana wartosc i od podanego pietra wzwyz\n5-Wyjdz");
             wybor = inputInt.nextInt();
             switch(wybor){
                 case 1 -> addProperty(mojaListaOfert, inputInt, inputString);
